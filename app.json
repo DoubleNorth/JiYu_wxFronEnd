@@ -1,13 +1,47 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/me/me",
+    "pages/team/team",
+    "pages/friend/friend",
+    "pages/moment/moment",
+    "pages/login/login",
+    "pages/start/start"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/icons/out_index.png",
+        "selectedIconPath": "images/icons/in_index.png"
+      },
+      {
+        "pagePath": "pages/team/team",
+        "text": "活动",
+        "iconPath": "images/icons/out_index.png",
+        "selectedIconPath": "images/icons/in_index.png"
+      },
+      {
+        "pagePath": "pages/friend/friend",
+        "text": "好友",
+        "iconPath": "images/icons/out_index.png",
+        "selectedIconPath": "images/icons/in_index.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的",
+        "iconPath": "images/icons/out_me.png",
+        "selectedIconPath": "images/icons/in_me.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "Weixin",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

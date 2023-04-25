@@ -17,3 +17,8 @@
 .usermotto {
   margin-top: 200px;
 }
+
+.form-input {
+  background-color: rgb(100, 228, 228);
+  border-radius: 5px;
+}

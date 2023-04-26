@@ -32,6 +32,6 @@
       </block>
     </view>
   </view>
-  <button bindtap="login">登录注册</button>
+  <button bindtap="start">进入界面</button>
   <button bindtap="testInterface">测试  接口</button>
 </view>

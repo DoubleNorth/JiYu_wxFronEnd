@@ -47,9 +47,9 @@ Page({
       hasUserInfo: true
     })
   },
-  login:function() {
+  start:function() {
     wx.navigateTo({
-      url: '/pages/login/login',
+      url: '/pages/start/start',
       success: function(res) {
         // res.eventChannel.emit('acceptDataFromOpenerPage', { data:  background})
       }

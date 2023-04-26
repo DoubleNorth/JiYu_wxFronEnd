@@ -15,6 +15,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    apiUrl: 'https://wxapiinterface.cpolar.top'
   }
 })

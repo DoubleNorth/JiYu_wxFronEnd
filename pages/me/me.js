@@ -1,21 +1,27 @@
+const app = getApp();
+const config = require("../../config.js");
 Page({
-  data: {
-    melist: [
-      {
-        imagePath: "/images/lunbotu/one.jpg",
-      },
-      {
-        name: "/images/geren/four.jpg",
-        imagePath: "/images/geren/five.jpg",
-        time: "/images/geren/six.jpg",
-      },
 
-    ]
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    showShare: false,
+    poster: JSON.parse(config.data).share_poster,
+    userinfo: {
+      "status": false,
+      "data": null,
+    },
   },
-  onShareAppMessage: function () {
-    return {
-      title: '欢迎使用JiYu',
-      path: '/pages/index/index',
-    }
+  login:function() {
+    wx.navigateTo({
+      url: '/pages/login/login',
+      success: function(res) {
+      }
+    })
+  },
+  test:function() {
+    console.log(this.data.userinfo.name);
   }
+
 })

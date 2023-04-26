@@ -1,13 +1,13 @@
 {
   "pages": [
+    "pages/start/start",
     "pages/index/index",
     "pages/logs/logs",
     "pages/me/me",
     "pages/team/team",
     "pages/friend/friend",
     "pages/moment/moment",
-    "pages/login/login",
-    "pages/start/start"
+    "pages/login/login"
   ],
   "tabBar": {
     "list": [

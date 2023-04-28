@@ -6,16 +6,15 @@ Page({
       data: {
             count: 3,
       },
-      onLoad(){
-            // this.getimg();
-            this.countDown();
-            // this.getuserdetail();
+      onLoad(){          
+            // this.countDown();
       },
       go() {
             wx.switchTab({
                   url: '/pages/index/index',
             })
       },
+      // 倒计时3秒进入
       countDown: function() {
             let that = this;
              let total = 3;

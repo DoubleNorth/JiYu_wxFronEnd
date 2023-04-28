@@ -7,9 +7,8 @@ Page({
   data: {
     ids: 0,
     password: '',
+    confirmPwd: '',
     name: '',
-    wxnum: '',
-    qqnum: '',
     campus: [{
           name: '四平校区',
           id: 0
@@ -26,6 +25,23 @@ Page({
           name: '彰武校区',
           id: 3
         }],
+    isLogin: true,
+    isRegister: false,
+  },
+  changeFunc() {
+    if (this.data.isLogin==true) {
+      this.setData({
+        isLogin: false,
+        isRegister: true
+      }) 
+      return
+    }
+    if (this.data.isLogin==false) {
+      this.setData({
+        isLogin: true,
+        isRegister: false
+      })
+    }
   },
   // 数据处理函数
   nameInput(e) {
@@ -34,6 +50,9 @@ Page({
   },
   passwordInput(e) {
     this.data.password = e.detail.value;    
+  },
+  confirmPwdInput(e) {
+    this.data.confirmPwdInput = e.detail.value;
   },
   choose(e) {
     let that = this;
@@ -48,7 +67,14 @@ Page({
   qqInput(e) {
     this.data.qqnum = e.detail.value;
   },
-  check() {
+  resetData() {
+    this.setData({
+      password: '',
+      name: '',
+      confirmPwd: ''
+    })
+  },
+  checkData() {
     let that = this;
     console.log(this.data.name);
     if (that.data.name == '') {
@@ -75,45 +101,65 @@ Page({
       });
       return false;
     }
-  
+
     return true;
   },
   //  登陆注册函数
   register:function() {
-    wx.request({
-      url: 'https://37fbde3f.r10.cpolar.top/api/user/register',
-      method: 'POST',
-      header: {
-        'Content-Type': 'application/json'
-      },
-      data: {
-        
-      },
-      success(res) {
-        console.log(res.data);
-        // 成功的话登录一下
-        var info = {}
-        this.gotoMe(info)
-      },
-      fail(error) {
-        console.log(error);
-        wx.showModal({
-          title: '注册失败',
-          content: '该用户已存在 请直接登录',
-          showCancel: false,
-        })
-      }
-    })
-  },
-  login: function () {
-    if (!this.check()) 
+     if (!this.checkData(1))   // 检查注册参数
       return;
     let that = this
     wx.showLoading({
       title: '加载中...',
       mask: true // 是否显示透明蒙层，防止触摸穿透，默认：false
     });
-
+    wx.request({
+      url: `${apiUrl}/api/user/register`,
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        "userAccount": that.data.name,
+        "checkPassword": that.data.password,
+        "userPassword":  that.data.confirmPwd,
+      },
+      success(res) {
+        console.log(res.data);
+        wx.hideLoading();    
+        // 注册失败
+        if (res.data.data == null) {
+          wx.showModal({
+            title: '注册失败',
+            content: 'ID已被使用 请重新输入',
+            showCancel: false,
+          })
+          that.resetData()
+          return;
+        }
+        // 注册成功  跳转到登录
+        that.resetData()
+        that.changeFunc()   
+      },
+      fail(error) {
+        console.log(error);
+        wx.hideLoading();
+        wx.showModal({
+          title: '注册失败',
+          content: '服务器繁忙 请稍后重试',
+          showCancel: false,
+        })
+      }
+    })
+  },
+  login: function () {
+    if (!this.checkData(2))  // 检查登录参数 
+      return;
+    let that = this
+    wx.showLoading({
+      title: '加载中...',
+      mask: true // 是否显示透明蒙层，防止触摸穿透，默认：false
+    });
     wx.request({
       url: `${apiUrl}/api/user/login`,
       method: 'POST',
@@ -128,17 +174,17 @@ Page({
         console.log(res.data);
         wx.hideLoading();
         // 这里要处理一下数据  把数据放到info   传给 me 界面
-        // 2 密码错误
+        // 登录失败
         if (res.data.data == null) {
           wx.showModal({
             title: '登录失败',
             content: '用户名或密码错误 请重新登录',
             showCancel: false,
           })
+          that.resetData()
           return;
         }
-        
-        // 1  登陆成功
+        // 登陆成功
         var info = {
           "status": true,
           "data": res.data.data
@@ -169,15 +215,5 @@ Page({
       delta:1,
     })
   },
-  
-  // 模拟登录
-  mocklogin: function () {
-    var userinfo = {
-      "status": true,
-      "name": this.data.name,
-      "pwd": this.data.password,
-    }
-    // this.gotoMe(userinfo)
-    console.log(`${apiUrl}/api`);
-  }
 })
+

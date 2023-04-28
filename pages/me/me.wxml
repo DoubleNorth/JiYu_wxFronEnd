@@ -11,7 +11,8 @@
       <view class="top_2">
             <view class="avator">
                   <!-- <open-data wx:if="{{userinfo}}" type="userAvatarUrl"></open-data> -->
-                  <image wx-if="{{userinfo.status}}" src="{{userinfo.data.avatarUrl}}"></image>
+                  <!-- <image wx-if="{{userinfo.status}}" src="{{avatarUrl}}"></image> -->
+                  <image wx-if="{{userinfo.status}}" src="/images/avator/boy.png"></image>
                   <image wx:if="{{!userinfo.status}}" src="/images/avator/avator.png"></image>
             </view>
       </view>
@@ -68,6 +69,7 @@
             </view>
             <image src="/images/go.png"></image>
       </view>
+      <button bindtap="getAvator">Test Avatar</button>
 </view>
 
 <!--分享弹出层-->

@@ -69,22 +69,8 @@ Page({
     })
   },
   testInterface: function () {
-    wx.request({
-      url: 'https://37fbde3f.r10.cpolar.top/api/user/login',
-      method: 'POST',
-      header: {
-        'Content-Type': 'application/json'
-      },
-      data: {
-        "userAccount": "ikun",
-        "userPassword": "123456"
-      },
-      success(res) {
-        console.log(res.data);
-      },
-      fail(error) {
-        console.log(error);
-      }
+    wx.navigateTo({
+      url: '/pages/start/start',
     })
   }
 })

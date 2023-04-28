@@ -1,7 +1,6 @@
 const app = getApp();
 const config = require("../../config.js");
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -12,6 +11,7 @@ Page({
       "status": false,
       "data": null,
     },
+    avatarUrl: '',
   },
   login:function() {
     wx.navigateTo({
@@ -20,8 +20,16 @@ Page({
       }
     })
   },
-  test:function() {
-    console.log(this.data.userinfo.name);
-  }
-
+  // 获取用户信息
+  getAvator() {
+    wx.getUserProfile({    
+      success: (res) => {
+        console.log('wx.getUserProfile: ', res.userInfo)
+        this.setData({
+          avatarUrl: res.userInfo.avatarUrl
+        })
+      }
+    })
+  },
+  
 })

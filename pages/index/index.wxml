@@ -34,4 +34,5 @@
   </view>
   <button bindtap="start">进入界面</button>
   <button bindtap="testInterface">测试  接口</button>
+  
 </view>

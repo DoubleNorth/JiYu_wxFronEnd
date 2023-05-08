@@ -6,7 +6,7 @@ Page({
    */
   data: {
     showShare: false,
-    poster: JSON.parse(config.data).share_poster,
+    // poster: JSON.parse(config.data).share_poster,
     userinfo: {
       "status": false,
       "data": null,
@@ -20,16 +20,22 @@ Page({
       }
     })
   },
-  // 获取用户信息
-  getAvator() {
-    wx.getUserProfile({    
-      success: (res) => {
-        console.log('wx.getUserProfile: ', res.userInfo)
-        this.setData({
-          avatarUrl: res.userInfo.avatarUrl
-        })
-      }
+  gotoUserInfo:function() {
+    wx.navigateTo({
+      url: '/pages/userInfo/userInfo',
     })
   },
-  
+  gotoTagEdit:function() {
+    wx.navigateTo({
+      url: '/pages/tags/tags',
+    })
+  },
+  logout:function() {
+    var info = this.data.userinfo
+    info.status = false;
+    this.setData({
+      userinfo: info
+    })
+    wx.setStorageSync('loginState', false)
+  }
 })

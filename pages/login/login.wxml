@@ -1,6 +1,9 @@
 <view class="top-bg" style="background-image: url('/images/login_bg.png')"></view>
 
 <view class="contain">
+  <view class="back-button">
+  <image src="/images/l_right.png" class="back-arrow" bindtap="goBackOneStep"></image>
+</view>
   <view wx-if="{{isLogin}}">
     <view class="card">
       <view class="title">登录</view>

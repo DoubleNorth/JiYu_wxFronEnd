@@ -1,6 +1,7 @@
 // index.js
 // 获取应用实例
-const app = getApp()
+const app = getApp();
+const apiUrl = app.globalData.apiUrl
 
 Page({
   data: {
@@ -47,14 +48,7 @@ Page({
       hasUserInfo: true
     })
   },
-  start:function() {
-    wx.navigateTo({
-      url: '/pages/start/start',
-      success: function(res) {
-        // res.eventChannel.emit('acceptDataFromOpenerPage', { data:  background})
-      }
-    })
-  },
+ 
   getUserProfile(e) {
     // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
     // 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
@@ -68,9 +62,19 @@ Page({
       }
     })
   },
-  testInterface: function () {
-    wx.navigateTo({
-      url: '/pages/start/start',
+  test: function () {
+    wx.request({
+      url: `${apiUrl}/algorithm`,
+      method: 'POST',
+      success(res) {
+        console.log(res.data);  
+      },
     })
-  }
+  },
+  enter:function() {
+    wx.navigateTo({
+      url: '/pages/tags/tags',
+    })
+  },
+
 })

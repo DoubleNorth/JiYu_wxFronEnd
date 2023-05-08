@@ -1,2 +1,15 @@
-<!--pages/friend/friend.wxml-->
-<text>pages/friend/friend.wxml</text>
+<view wx:if="{{loginState}}" class="friend-list">
+  <block wx:for="{{friendList}}" wx:for-index="index" wx:key="{{index}}">
+    <view class="friend-item" bindtap="onFriendItemClick" bindlongpress="onFriendItemLongPress" data-index="{{index}}">
+      <image class="avatar" src="{{item.avatarUrl}}"></image>
+      <view class="friend-info">
+        <view class="friend-name">{{item.username}}</view>
+        <view class="friend-nickname">{{item.lastMessage}}</view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view wx:if="{{!loginState}}" class="container">
+  <view class="title">请您先登录</view>
+</view>

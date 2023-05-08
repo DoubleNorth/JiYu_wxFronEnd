@@ -43,6 +43,11 @@ Page({
       })
     }
   },
+  goBackOneStep() {
+    wx.navigateBack({
+      delta: 1 // 返回上一级页面
+    })
+  },
   // 数据处理函数
   nameInput(e) {
     this.data.name = e.detail.value;  
@@ -52,7 +57,7 @@ Page({
     this.data.password = e.detail.value;    
   },
   confirmPwdInput(e) {
-    this.data.confirmPwdInput = e.detail.value;
+    this.data.confirmPwd = e.detail.value;
   },
   choose(e) {
     let that = this;
@@ -74,7 +79,7 @@ Page({
       confirmPwd: ''
     })
   },
-  checkData() {
+  checkData(tag) {
     let that = this;
     console.log(this.data.name);
     if (that.data.name == '') {
@@ -93,15 +98,32 @@ Page({
       });
       return false;
     }
-    if (that.data.ids == -1) {
-      wx.showToast({
-        title: '请先选择您的校区',
-        icon: 'none',
-        duration: 2000
-      });
-      return false;
+    if (tag == 2) {
+      if (that.data.ids == -1) {
+        wx.showToast({
+          title: '请先选择您的校区',
+          icon: 'none',
+          duration: 2000
+        });
+        return false;
+      }
+    } else {
+      if (that.data.confirmPwd == '') {
+        wx.showToast({
+          title: '请输入确认密码',
+          icon: 'none',
+          duration: 2000
+        });
+        return false;
+      } else if (that.data.confirmPwd != that.data.password) {
+        wx.showToast({
+          title: '两次输入密码不一致',
+          icon: 'none',
+          duration: 2000
+        });
+        return false;
+      }
     }
-
     return true;
   },
   //  登陆注册函数
@@ -113,16 +135,17 @@ Page({
       title: '加载中...',
       mask: true // 是否显示透明蒙层，防止触摸穿透，默认：false
     });
+    console.log(that.data);
     wx.request({
-      url: `${apiUrl}/api/user/register`,
+      url: `${apiUrl}/user/register`,
       method: 'POST',
       header: {
         'Content-Type': 'application/json'
       },
       data: {
         "userAccount": that.data.name,
-        "checkPassword": that.data.password,
-        "userPassword":  that.data.confirmPwd,
+        "checkPassword": that.data.confirmPwd,
+        "userPassword":  that.data.password,
       },
       success(res) {
         console.log(res.data);
@@ -161,7 +184,7 @@ Page({
       mask: true // 是否显示透明蒙层，防止触摸穿透，默认：false
     });
     wx.request({
-      url: `${apiUrl}/api/user/login`,
+      url: `${apiUrl}/user/login`,
       method: 'POST',
       header: {
         'Content-Type': 'application/json'
@@ -182,6 +205,13 @@ Page({
             showCancel: false,
           })
           that.resetData()
+          wx.setStorage({
+            key: 'loginState',
+            data: true,
+            success: function () {
+              console.log('登录成功')
+            }
+          })
           return;
         }
         // 登陆成功
@@ -189,6 +219,29 @@ Page({
           "status": true,
           "data": res.data.data
         }
+        // 把时间格式化一下
+        const timeStr = res.data.data.createTime;
+        const date = new Date(timeStr);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 补零到两位数
+        const day = String(date.getDate()).padStart(2, '0'); // 补零到两位数
+        const formattedTime = `${year}年${month}月${day}日`;
+        res.data.data.createTime = formattedTime
+        // 把信息存储在 storage中
+        wx.setStorage({
+          key: 'userInfo',
+          data: res.data.data,
+          success: function () {
+            console.log('用户信息存储成功')
+          }
+        })
+        wx.setStorage({
+          key: 'loginState',
+          data: true,
+          success: function () {
+            console.log('登录成功')
+          }
+        })
         that.gotoMe(info)
       },
       fail(error) {
@@ -199,6 +252,7 @@ Page({
           content: '服务器繁忙 请稍后重试',
           showCancel: false,
         })
+        
       }
     })
   },

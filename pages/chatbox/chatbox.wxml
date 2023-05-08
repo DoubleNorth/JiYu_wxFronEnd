@@ -1,0 +1,23 @@
+<!-- <view class="header">{{friendName}}</view> -->
+<view class="header">
+  <image class="avatar friend" src="{{friendAvatar}}"></image>
+  <view class="friend-info">
+    <view class="friend-name">{{friendName}}</view>
+  </view>
+  <image class="avatar mine" src="{{currentUserAvatar}}"></image>
+</view>
+<view class="top-space"></view>
+
+<view id="messagecontainer">
+  <view wx:for="{{messageList}}" wx:key="messageID" class="message-item {{item.senderID == currentUserID ? 'mine' : 'other'}}" bindlongpress="withdrawMessage" data-index="{{index}}">
+    <view class="message-content">{{item.messageContent}}</view>
+    <view class="message-time">{{item.time}}</view>
+  </view>
+</view>
+
+<view class="bottom-space"></view>
+
+<view class="input-container">
+  <textarea class="input-box" placeholder="请输入消息" value="{{inputValue}}" bindinput="onInput" auto-height=""></textarea>
+  <button class="send-btn" bindtap="sendMessage">发送</button>
+</view>

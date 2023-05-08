@@ -8,6 +8,24 @@
       background-size: 100%;
 }
 
+.back-button {
+  position: fixed;
+  left: 10px;
+  top: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.back-arrow {
+  width: 20px;
+  height: 20px;
+  transform: scaleX(-1);
+}
+
+
 .contain {
       position: absolute;
       top: 176rpx;

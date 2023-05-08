@@ -1,0 +1,42 @@
+<view wx:if="{{!loginstatus}}" style="display:flex;justify-content:center;align-items:center;height:50vh;">
+  <view style="font-size:18px;font-weight:bold;">请您先登录</view>
+</view>
+
+<view wx:if="{{loginstatus}}" class="container">
+  <form bindsubmit="onSubmit">
+    <view class="form-group">
+      <label class="label">姓名</label>
+      <input bindinput="nameInput" class="input" name="name" value="{{newName}}" placeholder="请输入姓名" disabled="{{edit}}" />
+    </view>
+    <view class="form-group">
+      <label class="label">账号</label>
+      <input class="input" name="name" value="{{userInfo.userAccount}}" placeholder="请输入账号" disabled="true" />
+    </view>
+  
+    <picker disabled="{{edit}}" bindchange="bindPickerChange" value="{{genderIndex}}" range="{{genders}}">
+      <view class="form-group">
+        <label class="label">性别</label>
+        <view class="picker">
+          {{genders[genderIndex]}}
+        </view>
+      </view>
+    </picker>
+
+    <view class="form-group">
+      <label class="label">电话</label>
+      <input bindinput="phoneInput" class="input" name="age" type="number" value="{{newPhone}}" placeholder="添加手机号码" disabled="{{edit}}" />
+    </view>
+    <view class="form-group">
+      <label class="label">邮箱</label>
+      <input bindinput="mailInput" class="input" name="age" type="number" value="{{newMail}}" placeholder="添加邮箱" disabled="{{edit}}"/>
+    </view>
+    <view class="form-group">
+      <label class="label">注册时间</label>
+      <input class="input" name="age" type="number" value="{{userInfo.createTime}}" disabled="true"/>
+    </view>
+    <button wx:if="{{edit}}" class="edit-button" bindtap="enterEditStatus">编辑</button>
+    <button wx:if="{{!edit}}" class="submit-button" bindtap="enterCheckStatus" >保存</button>
+  </form>
+</view>
+
+

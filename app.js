@@ -13,9 +13,10 @@ App({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }
     })
+
   },
   globalData: {
     userInfo: null,
-    apiUrl: 'https://wxapiinterface.cpolar.top'
+    apiUrl: 'https://wxapiinterface2.cpolar.top/api'
   }
 })

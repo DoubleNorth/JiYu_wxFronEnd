@@ -7,12 +7,13 @@ Page({
             count: 3,
       },
       onLoad(){          
-            // this.countDown();
+            this.countDown();
       },
       go() {
-            wx.switchTab({
-                  url: '/pages/index/index',
-            })
+        clearInterval(this.interval);
+        wx.switchTab({
+          url: '/pages/index/index',
+        })
       },
       // 倒计时3秒进入
       countDown: function() {

@@ -1,0 +1,21 @@
+<view wx:if="{{loginState}}" class="friend-list">
+  <block wx:for="{{friendList}}" wx:key="index">
+    <view class="friend-item" data-index="{{index}}" >
+      <image class="avatar" src="{{item.avatar}}" mode="aspectFit"></image>
+      <view class="friend-info">
+        <view class="friend-name">{{item.name}}</view>
+        <view class="tag-list">
+          <block wx:for="{{item.tags}}" wx:key="index">
+            <view class="tag">{{item}}</view>
+          </block>
+        </view>
+      </view>
+      <image src="/images/friends/add.png" data-index="{{index}}"  bindtap="addFriend" class="add"/>
+    </view>
+  </block>
+</view>
+
+
+<view wx:if="{{!loginState}}" class="container">
+  <view class="title">请您先登录</view>
+</view>

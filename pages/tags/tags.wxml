@@ -1,0 +1,53 @@
+<!-- pages/tag/tag.wxml -->
+<view wx:if="{{!loginstatus}}" style="display:flex;justify-content:center;align-items:center;height:50vh;">
+  <view style="font-size:18px;font-weight:bold;">请您先登录</view>
+</view>
+
+
+<!-- <import src="pages/common/head.wxml" />
+<import src="pages/common/foot.wxml" />  -->
+<view wx:if="{{loginstatus}}">
+
+<view class="container page" data-weui-theme="{{theme}}">
+  <!-- <template is="head" data="{{title: 'checkbox'}}"/> -->
+
+  <view class="page-body">
+    <!-- <view class="page-section page-section-gap">
+      <view class="page-section-title">示例</view>
+      <label class="checkbox">
+        <checkbox value="cb" checked="true"/>选中
+      </label>
+      <label class="checkbox">
+        <checkbox value="cb" />未选中
+      </label>
+    </view> -->
+     <view class="page-section-title">请选择你的兴趣标签</view>
+
+    <view class="page-section">
+      <!-- <view class="page-section-title">推荐展示样式</view> -->
+      <view class="weui-cells weui-cells_after-title">
+        <checkbox-group bindchange="checkboxChange">
+          <!-- <label class="weui-cell weui-check__label" wx:for="{{items}}" wx:key="{{item.value}}"> -->
+          <label class="checkbox" wx:for="{{items}}" wx:key="{{item.value}}">
+            <!-- <view class="weui-cell__hd"> -->
+            <checkbox value="{{item.value}}" checked="{{item.checked}}"/>{{item.name}}
+            <!-- <text>\n</text> -->
+            <!-- </view> -->
+            <!-- <view class="weui-cell__bd">{{item.name}}</view> -->
+          </label>
+        </checkbox-group>
+      </view>
+    </view>
+  </view>
+  <!-- <text>\n</text> -->
+ 
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          自定义标签<input bindinput="tagInput" value="{{newTag}}" class="weui-input" maxlength="10" placeholder="请输入自定义标签" />
+        </view>
+        <button bindtap="AddTag">确认添加</button>
+      </view>
+
+</view>
+<button bindtap="PostTag">确认提交</button>
+</view>

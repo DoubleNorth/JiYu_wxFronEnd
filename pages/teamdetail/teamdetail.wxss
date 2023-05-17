@@ -1,0 +1,119 @@
+/* activity-detail.wxss */
+
+.container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+}
+
+.public {
+  background-color: #42b983;
+}
+
+.private {
+  background-color: #fdd300;
+}
+
+.encrypted {
+  background-color: #ff6b6b;
+}
+
+.content {
+  margin-bottom: 20px;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.info-label {
+  width: 80px;
+}
+
+.user-list {
+  margin-bottom: 20px;
+}
+
+.user-list-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.user-list-item {
+  margin-bottom: 5px;
+}
+
+.join-button {
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(93, 93, 209);
+  color: #fff;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.quit-button {
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(199, 91, 91);
+  color: #fff;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+/* 用户列表 */
+/* activity-detail.wxss */
+
+/* 其他样式... */
+
+.user-list-item {
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.username {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.gender {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.gender-male {
+  background-color: blue;
+}
+
+.gender-female {
+  background-color: pink;
+}

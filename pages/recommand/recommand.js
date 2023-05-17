@@ -63,30 +63,9 @@ Page({
       curId: wx.getStorageSync('userInfo').id
     })
 
-    wx.request({
-      url: `${apiUrl}/user/recommend?curId=`+this.data.curId+'&pageSize=8&pageNum=1',
-      method: 'GET',
-      header: {
-        'Content-Type': 'application/json'
-      },
-      success(res) {
-        console.log(res.data.data);
-        const info =res.data.data.records.map(obj => ({
-          id: obj.id,
-          name: obj.username,
-          avatar: obj.avatarUrl,
-          tags:  JSON.parse(obj.tags)
-        }));
-    
-        that.setData({
-          friendList: info
-        })
-      },
-      fail(error) {
-
-      }
-    })
-
+    // 获取普通推荐
+    // this.getCommonRecommend()
+    this.getBestMatch()
 
   },
   requestToAdd(id, curId) {
@@ -116,5 +95,57 @@ Page({
       }
     })
 
+  }, 
+  getCommonRecommend() {
+    wx.request({
+      url: `${apiUrl}/user/recommend?curId=`+this.data.curId+'&pageSize=8&pageNum=1',
+      method: 'GET',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success(res) {
+        console.log(res.data.data);
+        const info =res.data.data.records.map(obj => ({
+          id: obj.id,
+          name: obj.username,
+          avatar: obj.avatarUrl,
+          tags:  JSON.parse(obj.tags)
+        }));
+    
+        that.setData({
+          friendList: info
+        })
+      },
+      fail(error) {
+      }
+    })
+  },
+  getBestMatch() {
+    var that = this
+    wx.request({
+      url: `${apiUrl}/user/match?curId=`+this.data.curId+'&num=4',
+      method: 'GET',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success(res) {
+        console.log("test match");
+        console.log(res.data.data);   
+
+        
+        const info =res.data.data.map(obj => ({
+          id: obj.id,
+          name: obj.username,
+          avatar: obj.avatarUrl,
+          tags:  JSON.parse(obj.tags)
+        }));
+    
+        that.setData({
+          friendList: info
+        })
+      },
+      fail(error) {
+      }
+    })
   }
 })

@@ -73,7 +73,7 @@ Page({
   },
   enter:function() {
     wx.navigateTo({
-      url: '/pages/tags/tags',
+      url: '/pages/team/team',
     })
   },
 

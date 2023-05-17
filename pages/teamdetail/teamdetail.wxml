@@ -1,0 +1,42 @@
+<!-- activity-detail.wxml -->
+
+<view class="container">
+  <view class="header">
+    <view class="title">{{team.name}}</view>
+    <view class="tag {{team.status === 0 ? 'public' : team.status === 2 ? 'encrypted' : 'private'}}">
+      {{team.status === 0 ? '公开' : team.status === 2 ? '加密' : '私有'}}
+    </view>
+  </view>
+
+  <view class="content">
+    <view class="info-row">
+      <view class="info-label">描述：</view>
+      <view class="info-value">{{team.description}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">参加人数：</view>
+      <view class="info-value">{{team.hasJoinNum}}/{{team.maxNum}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">创建时间：</view>
+      <view class="info-value">{{team.createTime}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">过期时间：</view>
+      <view class="info-value">{{team.expireTime}}</view>
+    </view>
+  </view>
+
+  <view class="user-list">
+    <view class="user-list-header">用户列表：</view>
+    <view wx:for="{{userList}}" wx:key="index" class="user-list-item">
+      <view class="user-info">
+        <view class="username">{{item.username}}</view>
+        <view class="gender {{item.gender === 0 ? 'gender-male' : 'gender-female'}}">{{item.gender === 0 ? '男' : '女'}}</view>
+      </view>
+    </view>
+  </view>
+
+  <button wx:if="{{!inTeam}}" class="join-button" bindtap="joinTeam">加入队伍</button>
+  <button wx:if="{{inTeam}}" class="quit-button" bindtap="quitTeam">退出队伍</button>
+</view>

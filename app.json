@@ -1,23 +1,24 @@
 {
   "pages": [
     "pages/start/start",
+    "pages/team/team",
     "pages/index/index",
     "pages/logs/logs",
     "pages/me/me",
-    "pages/team/team",
     "pages/friend/friend",
     "pages/moment/moment",
     "pages/login/login",
     "pages/userInfo/userInfo",
     "pages/recommand/recommand",
     "pages/chatbox/chatbox",
-    "pages/tags/tags"
+    "pages/tags/tags",
+    "pages/teamdetail/teamdetail"
   ],
   "tabBar": {
     "list": [
       {
-        "pagePath": "pages/index/index",
-        "text": "首页",
+        "pagePath": "pages/team/team",
+        "text": "活动",
         "iconPath": "images/icons/home.png",
         "selectedIconPath": "images/icons/home_on.png"
       },

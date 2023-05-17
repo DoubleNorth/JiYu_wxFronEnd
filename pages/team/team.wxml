@@ -1,87 +1,34 @@
-<view class="header" wx:if="{{showHeader}}" bindtap="colseHeader" >
-  <view class="header-tip">
-    点击右上角“添加到我的小程序”，以后找我更方便哦
+<view class="filter-container">
+  <view class="filter-item {{status == 0 ? 'active' : ''}}" data-type="0" bindtap="handleFilter">公开</view>
+  <view class="filter-item {{status == 2 ? 'active' : ''}}" data-type="2" bindtap="handleFilter">加密</view>
+  <!-- <view class="filter-item {{status == 1 ? 'active' : ''}}" data-type="1" bindtap="handleFilter">私有</view> -->
+</view>
+
+<view class="search-container">
+  <input class="search-input" type="text" placeholder="请输入活动关键词" value="{{searchText}}" bindinput="onSearchInput" />
+
+  <view class="search-icon" bindtap="onSearch">
+    <image src="/images/search.png" mode="aspectFit" />
   </view>
-	<image class="header-img" src="/images/close2.png"></image>
 </view>
 
-<!--轮播图 -->
-<view class="banner">
-	<swiper indicator-dots="true" autoplay="true" interval="4000" circular="true">
-		<swiper-item wx:for="{{indexlist}}" wx:key="_id">
-			<image bindload="loadImage" binderror="loadImageErr" src="{{item.img}}" bindtap="bindSwiper" data-swi="{{index}}"></image>
-		</swiper-item>
-	</swiper>
-</view>
 
-<!-- 图标 -->
-<view class="major">
-	<view class="majorCon" style="{{showApp?'':'padding:0rpx 50rpx;'}}">
-		<navigator class="box" url="/pages/jxrl/jxrl" open-type="navigate">
-			<image class="pic" src="/images/tubiao/zhouli.png"></image>
-			<view class="txt">教学周历</view>
-		</navigator>
-
-		<navigator class="box" url="/pages/organization/organization" open-type="navigate">
-			<image class="pic" src="/images/tubiao/jigou.png"></image>
-			<view class="txt">学校机构</view>
-		</navigator>
-
-		<navigator class="box" url="/pages/club/club" open-type="navigate">
-			<image class="pic" src="/images/tubiao/shetuan.png"></image>
-			<view class="txt">学校社团</view>
-		</navigator>
-
-		<navigator wx:if="{{showApp}}" class="box" url="/pages/tongxianghui/tongxianghui" open-type="navigate">
-			<image class="pic" src="/images/tubiao/tongxiang.png"></image>
-			<view class="txt">同乡会</view>
-		</navigator>
-		
-	</view>
-
-	<view class="majorCon" style="{{showApp?'':'padding:0rpx 50rpx;'}}">
-		<navigator class="box" url="/pages/school-map/school-map" open-type="navigate">
-			<image class="pic" src="/images/tubiao/ditu.png"></image>
-			<view class="txt">校园地图</view>
-		</navigator>
-
-		<navigator class="box" url="/pages/official-account/official-account" open-type="navigate">
-			<image class="pic" src="/images/tubiao/gzh.png"></image>
-			<view class="txt">公众号</view>
-		</navigator>
-
-		<navigator class="box" url="/pages/dorm/dorm" open-type="navigate">
-			<image class="pic" src="/images/tubiao/sushe.png"></image>
-			<view class="txt">宿舍安排</view>
-		</navigator>
-
-		<navigator wx:if="{{showApp}}" class="box" url="/pages/classgroup/classgroup" open-type="navigate">
-			<image class="pic" src="/images/tubiao/banqun.png"></image>
-			<view class="txt">新生群</view>
-		</navigator>
-
-	</view>
-
-</view>
-
-<view class="works">
-	<view class="txt">今日课表</view>
-	<view>{{currentWeek}}  {{days[todayWeek-1]}}</view>
-  <navigator class="more" url="/pages/course/course">
-		<view>查看完整课表</view>
-		<view class='arrow'></view>
-	</navigator>
-</view>
-<view class="course-body">
-	<view class="course-tip" wx:if="{{!myClass&&showTip}}" bindtap="toMyInfo">您未绑定班级信息，点我绑定</view>
-	<view class="course-tip" wx:elif="{{courseData.length==0&&showTip}}">{{tipStr}}</view>
-	<view class="course-list" wx:else>
-		<view class="course-contnet" wx:for="{{courseData}}" wx:for-item="course" wx:for-index="i" wx:key="_id">
-			<view class="course-contnet-title">{{time[course.beginTime-1][0]}}-{{time[course.endTime-1][1]}} {{course.name}}</view>
-			<view class="course-contnet-txt">
-			 {{course.teacher}}| {{course.place}} | {{course.weeks}}
-			</view>
-		</view>
-		<view class="course-explain" wx:if="{{courseData.length>0}}">由于100网的全校班级课表查询只显示第几大节，因此第二大节和第四大节都设为3小节，若与自己的课表不符，可导入个人课表纠正。</view>
-	</view>
+<view class="activity-list">
+  <view wx:for="{{teams}}" wx:key="index" class="activity-item">
+    <view class="activity-header">
+      <view class="activity-name">{{item.name}}</view>
+      <view class="activity-tag {{item.status === 0 ? 'public' : item.status === 2 ? 'encrypted' : 'private'}}">
+        {{item.status === 0 ? '公开' : item.status === 2 ? '加密' : '私有'}}
+      </view>
+    </view>
+    <view class="activity-content">
+      <view class="activity-description">{{item.description}}</view>
+      <view class="activity-description">{{item.hasJoinNum}}/{{item.maxNum}}</view>
+      <view class="activity-dates">
+        <view class="activity-created">创建时间：{{item.createTime}}</view>
+        <view class="activity-expire">过期时间：{{item.expireTime}}</view>
+      </view>
+    </view>
+    <button class="join-button" bindtap="checkTeam" data-index="{{index}}">查看详情</button>
+  </view>
 </view>

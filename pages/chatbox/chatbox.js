@@ -139,15 +139,17 @@ Page({
     const message = this.data.messageList[index];
     console.log('当前消息信息：', message);
     var that = this
-    wx.showActionSheet({
-      itemList: ['撤回消息'],
-      success: (res) => {
-        if (res.tapIndex === 0) {
-          // 删除好友
-          that.deleteMessage(message.messageID)
-        }
-      },
-    })
+    if (this.data.currentUserID == message.senderID) {
+      wx.showActionSheet({
+        itemList: ['撤回消息'],
+        success: (res) => {
+          if (res.tapIndex === 0) {
+            // 删除好友
+            that.deleteMessage(message.messageID)
+          }
+        },
+      })
+    }
   },
   deleteMessage(messageId) {
     wx.request({

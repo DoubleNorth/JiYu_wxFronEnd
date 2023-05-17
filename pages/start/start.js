@@ -12,7 +12,7 @@ Page({
       go() {
         clearInterval(this.interval);
         wx.switchTab({
-          url: '/pages/index/index',
+          url: '/pages/team/team',
         })
       },
       // 倒计时3秒进入
@@ -25,7 +25,7 @@ Page({
                   })), 0 === total && (that.setData({
                         count: total
                   }), wx.switchTab({
-                        url: "/pages/index/index"
+                        url: "/pages/team/team"
                   }), clearInterval(that.interval));
             }, 1e3);
       },
